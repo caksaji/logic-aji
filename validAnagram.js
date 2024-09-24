@@ -31,9 +31,15 @@ function validAnagram(material) {
 }
 
 // module.exports = validAnagram;
-console.log(validAnagram(['', '']));
-console.log(validAnagram([' ', ' ']));
-console.log(validAnagram(['hello', 'ellho']));
-console.log(validAnagram(['hello', 'ell  ho']));
-console.log(validAnagram(['hello', 'heeello']));
-console.log(validAnagram(['hello', 'eegho']));
+// Created a new array with 2 string as value based on examples below to make your own checking
+const example = [
+  ['', ''],
+  [' ', ' '],
+  ['hello', 'ellho'],
+  ['hello', 'ell  ho'],
+  ['hello', 'heeello'],
+  ['hello', 'eegho']
+];
+for (let i = 0; i < example.length; i++) {
+  console.log(validAnagram(example[i]));
+}
