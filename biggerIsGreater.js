@@ -1,19 +1,49 @@
-/*
- Lexicographical order is often known as alphabetical order when dealing with strings. A string is greater than another string if it comes later in a lexicographically sorted list. [Kuya]
+function biggerIsGreater(word) {
+  // Initialize result value
+  let result = null;
+  // Split word into array of characters
+  const splitWord = word.split('');
+  let i = splitWord.length - 1;
 
-Given a word, create a new word by swapping some or all of its characters. This new word must meet two criteria:
+  // Find the longest non-increasing suffix
+  while (i > 0 && splitWord[i - 1] >= splitWord[i]) {
+    i--;
+  }
 
-It must be greater than the original word
-It must be the smallest word that meets the first condition
-Example:
-- abcd
+  // If the entire string is non-increasing, there's no larger permutation
+  if (i <= 0) {
+    return 'no answer';
+  }
 
-The next largest word is abdc.
+  // Find the pivot
+  const pivotIndex = i - 1;
+  let j = splitWord.length - 1;
 
-Complete the function biggerIsGreater below to create and return the new string meeting the criteria. If it is not possible, return no answer.
-*/
+  // Find the rightmost successor to the pivot
+  while (splitWord[j] <= splitWord[pivotIndex]) {
+    j--;
+  }
 
+  // Swap the pivot with the successor
+  [splitWord[pivotIndex], splitWord[j]] = [splitWord[j], splitWord[pivotIndex]];
 
-function biggerIsGreater() {
-    // Write your code here
+  // Reverse the suffix
+  splitWord.splice(i, splitWord.length - i, ...splitWord.slice(i).reverse());
+
+  result = splitWord.join('');
+
+  return result;
+}
+
+// Created a new string to array below to make your own checking
+const example = [
+  'ab',
+  'ba',
+  'bb',
+  'hefg',
+  'dhck',
+  'dkhc'
+];
+for (let i = 0; i < example.length; i++) {
+  console.log(`${example[i]} -> ${biggerIsGreater(example[i])}`);
 }
