@@ -1,34 +1,4 @@
-// Please group the array of objects by bankCode and calculate the total incoming and outgoing balances for each bank.
-// The data is stored in an array of objects, with each object containing a bankCode, a balance_InOut value, and a transactionType indicating whether the balance is incoming or outgoing.
-
-
-// Expected result
-/*
-{
-  "SP-0329": {
-    "totalDanaMasuk": 700000,
-    "totalDanaKeluar": 1250000
-  },
-  "SP-1234": {
-    "totalDanaMasuk": 2300000,
-    "totalDanaKeluar": 1300000
-  },
-  "SP-5678": {
-    "totalDanaMasuk": 750000,
-    "totalDanaKeluar": 850000
-  },
-  "SP-8765": {
-    "totalDanaMasuk": 300000,
-    "totalDanaKeluar": 1750000
-  },
-  "SP-4321": {
-    "totalDanaMasuk": 150000,
-    "totalDanaKeluar": 700000
-  }
-}
-*/
-
-
+// Given data
 const arr = [
   {bankCode: 'SP-0329', balance_InOut: 500000, transactionType: 'Dana Masuk'},
   {bankCode: 'SP-1234', balance_InOut: 750000, transactionType: 'Dana Keluar'},
@@ -52,10 +22,32 @@ const arr = [
   {bankCode: 'SP-8765', balance_InOut: 900000, transactionType: 'Dana Keluar'}
 ];
 
-
 function groupByBankCode() {
-  // Write your code here
+  // Initialize key of transaction types
+  const trxType = ['danamasuk', 'danakeluar'];
+
+  // Transform array into an object consist of transactions grouped by bankCode
+  let result = arr.reduce((trx, { bankCode, balance_InOut, transactionType }) => {
+    // If new bankCode not found in existing group
+    if (!trx[bankCode]) {
+      // Create a new group of bankCode with transaction value of 0
+      trx[bankCode] = { totalDanaMasuk: 0, totalDanaKeluar: 0 };
+    }
+
+    // Check transaction type
+    if (transactionType.replace(/\s/g, '').toLowerCase() === trxType[0]) {
+      // If income then summarize
+      trx[bankCode].totalDanaMasuk += balance_InOut;
+    } else if (transactionType.replace(/\s/g, '').toLowerCase() === trxType[1]) {
+      // If outcome then summarize
+      trx[bankCode].totalDanaKeluar += balance_InOut;
+    }
+
+    return trx;
+  }, {});
+
+  return result;
 }
 
-
-module.exports = groupByBankCode;
+// module.exports = groupByBankCode;
+console.log(groupByBankCode());
