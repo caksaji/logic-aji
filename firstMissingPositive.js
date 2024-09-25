@@ -1,26 +1,42 @@
-/*
-Given an unsorted integer array nums, find the smallest missing positive integer.
-Input: An unsorted array of integers nums[] which may contain both positive and negative numbers.
-Output: Return the smallest missing positive integer.
+function firstMissingPositive(arr) {
+  const arrL = arr.length;
 
-Example:
-Input: [1, 2, 0]
-Output: 3
-Explanation: The numbers 1 and 2 are present, so the smallest missing positive integer is 3.
+  // Clean the array
+  for (let i = 0; i < arrL; i++) {
+    // Replace non-positive numbers and numbers > n with n+1
+    if (arr[i] <= 0 || arr[i] > arrL) {
+      arr[i] = arrL + 1;
+    }
+  }
 
-Input: [3, 4, -1, 1]
-Output: 2
-Explanation: The smallest missing positive integer is 2.
+  // Use the index as a hash to mark the presence of numbers
+  for (let i = 0; i < arrL; i++) {
+    const num = Math.abs(arr[i]);
+    if (num <= arrL) {
+      // Mark as negative
+      arr[num - 1] = -Math.abs(arr[num - 1]);
+    }
+  }
 
-Input: [7, 8, 9, 11, 12]
-Output: 1
-Explanation: The smallest missing positive integer is 1 since none of the positive integers starting from 1 are present.
-*/
+  // Find the first positive index
+  for (let i = 0; i < arrL; i++) {
+    if (arr[i] > 0) {
+      // Smallest missing positive integer
+      return i + 1;
+    }
+  }
 
-
-function firstMissingPositive() {
-  // Write your code here
+  // If all positions are filled
+  return arrL + 1;
 }
 
-
-module.exports = firstMissingPositive;
+// module.exports = firstMissingPositive;
+// Created a new array based on examples below to make your own checking
+const example = [
+  [1, 2, 0],
+  [3, 4, -1, 1],
+  [7, 8, 9, 11, 12]
+];
+for (let i = 0; i < example.length; i++) {
+  console.log(`[${example[i]}] = ${firstMissingPositive(example[i])}`);
+}
