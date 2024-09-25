@@ -1,12 +1,9 @@
 # Logic Test
 
-### Task:
+## How do I Run it?:
 
-Inside the repository, open the files and solve the logic problems provided.
-
-### Instructions:
-
-- Write your solutions in the provided files and ensure that they are functional.
-- Include comments where necessary to explain your approach.
-
-## GoodLuck! 🍀
+1. Install [node.js](https://nodejs.org/en)
+2. Clone this project / download as zip
+3. Extract it if download as zip
+4. Open terminal in the same and open this project directory
+5. Run `node <filename.js>`. For example: `node validAnagram.js`
